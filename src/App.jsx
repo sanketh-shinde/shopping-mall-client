@@ -4,6 +4,7 @@ import Profile from "./components/Profile";
 import LoginForm from "./components/Login";
 import NavBar from "./components/NavBar";
 
+
 function App() {
   return (
     <>
