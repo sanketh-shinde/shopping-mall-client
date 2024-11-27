@@ -1,167 +1,155 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const RegisterForm = () => {
-  const [formData, setFormData] = useState({
+  const initialState = {
     name: "",
-    mobileNumber: "",
-    role: "employee",
+    phoneNumber: "",
     password: "",
-  });
-
-  const [errors, setErrors] = useState({});
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    salary: 0.0,
+    joiningDate: "",
+    year: new Date().getFullYear(),
+    roles: [
+      {
+        designation: "Employee",
+        role: "ROLE_EMPLOYEE",
+      },
+    ],
   };
 
-  const validateForm = () => {
-    let formErrors = {};
-    if (!formData.name) formErrors.name = "Name is required";
-    if (!formData.mobileNumber || !/^\d{10}$/.test(formData.mobileNumber)) {
-      formErrors.mobileNumber = "Mobile number must be 10 digits";
+  const [employee, setEmployee] = useState(initialState);
+
+  const handleRoleAndSalary = (designation) => {
+    switch (designation) {
+      case "admin":
+        setEmployee({
+          ...employee,
+          salary: 65000,
+          roles: [
+            { designation: "Admin", role: "ROLE_ADMIN" },
+            { designation: "Employee", role: "ROLE_EMPLOYEE" },
+          ],
+        });
+        break;
+      case "accountant":
+        setEmployee({
+          ...employee,
+          salary: 55000,
+          roles: [
+            { designation: "Accountant", role: "ROLE_ACCOUNTANT" },
+            { designation: "Employee", role: "ROLE_EMPLOYEE" },
+          ],
+        });
+        break;
+      case "sales-supervisor":
+        setEmployee({
+          ...employee,
+          salary: 45000,
+          roles: [
+            { designation: "Sales Supervisor", role: "ROLE_SALES_SUPERVISOR" },
+            { designation: "Employee", role: "ROLE_EMPLOYEE" },
+          ],
+        });
+        break;
+      case "floor-supervisor":
+        setEmployee({
+          ...employee,
+          salary: 35000,
+          roles: [
+            { designation: "Floor Supervisor", role: "ROLE_FLOOR_SUPERVISOR" },
+            { designation: "Employee", role: "ROLE_EMPLOYEE" },
+          ],
+        });
+        break;
+      case "employee":
+        setEmployee({
+          ...employee,
+          salary: 25000,
+          roles: [{ designation: "Employee", role: "ROLE_EMPLOYEE" }],
+        });
+        break;
+      default:
+        break;
     }
-    if (!formData.password || formData.password.length < 6) {
-      formErrors.password = "Password must be at least 6 characters long";
-    }
-    return formErrors;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const formErrors = validateForm();
-
-    if (Object.keys(formErrors).length === 0) {
-      console.log("Form submitted:", formData);
-      setFormData({
-        name: "",
-        mobileNumber: "",
-        role: "user",
-        password: "",
-      });
-      setErrors({});
-    } else {
-      setErrors(formErrors);
-    }
+    console.log(employee);
   };
 
   return (
-    <div style={styles.container}>
-      <div style={styles.formContainer}>
-        <h2>Register</h2>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="name">Name:</label>
+    <>
+      <form onSubmit={handleSubmit}>
+        <h1>Register Employee</h1>
+        <div>
+          <label>
+            Name:
             <input
               type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Enter your name"
-              style={styles.input}
+              value={employee.name}
+              onChange={(e) =>
+                setEmployee({ ...employee, name: e.target.value })
+              }
+              required
             />
-            {errors.name && <p style={styles.error}>{errors.name}</p>}
-          </div>
-
-          <div>
-            <label htmlFor="mobileNumber">Mobile Number:</label>
+          </label>
+        </div>
+        <div>
+          <label>
+            Phone Number:
             <input
-              type="text"
-              id="mobileNumber"
-              name="mobileNumber"
-              value={formData.mobileNumber}
-              onChange={handleChange}
-              placeholder="Enter your mobile number"
-              style={styles.input}
+              type="number"
+              value={employee.phoneNumber}
+              onChange={(e) =>
+                setEmployee({ ...employee, phoneNumber: e.target.value })
+              }
+              required
             />
-            {errors.mobileNumber && (
-              <p style={styles.error}>{errors.mobileNumber}</p>
-            )}
-          </div>
-
-          <div>
-            <label htmlFor="role">Role:</label>
-            <select
-              id="role"
-              name="role"
-              value={formData.role}
-              onChange={handleChange}
-              style={styles.input}
-            >
-              <option value="employee">Employee</option>
+          </label>
+        </div>
+        <div>
+          <label>
+            Joining Date:
+            <input
+              type="date"
+              value={employee.joiningDate}
+              onChange={(e) =>
+                setEmployee({ ...employee, joiningDate: e.target.value })
+              }
+              required
+            />
+          </label>
+        </div>
+        <div>
+          <label>
+            Designation:
+            <select onChange={(e) => handleRoleAndSalary(e.target.value)}>
+              <option>Select a designation</option>
               <option value="admin">Admin</option>
-              <option value="manager">Manager</option>
               <option value="accountant">Accountant</option>
-              <option value="floor_supervisor">FloorSupervisor</option>
-              <option value="sale_supervisor">SaleSupervisor</option>
+              <option value="sales-supervisor">Sale Supervisor</option>
+              <option value="floor-supervisor">Floor Supervisor</option>
+              <option value="employee">Employee</option>
             </select>
-          </div>
-
-          <div>
-            <label htmlFor="password">Password:</label>
+          </label>
+        </div>
+        <div>
+          <label>
+            Password:
             <input
               type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Enter your password"
-              style={styles.input}
+              value={employee.password}
+              onChange={(e) =>
+                setEmployee({ ...employee, password: e.target.value })
+              }
+              required
             />
-            {errors.password && <p style={styles.error}>{errors.password}</p>}
-          </div>
-
-          <button type="submit" style={styles.submitButton}>
-            Register
-          </button>
-        </form>
-      </div>
-    </div>
+          </label>
+        </div>
+        <input type="submit" value="Register Employee" />
+      </form>
+    </>
   );
 };
-const styles = {
-  container: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100vh",
-    backgroundColor: "#f4f4f9",
-  },
-  formContainer: {
-    width: "100%",
-    maxWidth: "400px",
-    padding: "20px",
-    border: "1px solid #ccc",
-    borderRadius: "10px",
-    backgroundColor: "white",
-  },
-  input: {
-    width: "100%",
-    padding: "10px",
-    marginBottom: "10px",
-    borderRadius: "5px",
-    border: "1px solid #ccc",
-    fontSize: "16px",
-  },
-  submitButton: {
-    width: "100%",
-    padding: "10px",
-    backgroundColor: "#4CAF50",
-    color: "white",
-    border: "none",
-    borderRadius: "5px",
-    fontSize: "16px",
-    cursor: "pointer",
-  },
-  error: {
-    color: "red",
-    fontSize: "12px",
-    marginBottom: "10px",
-  },
-};
+
 export default RegisterForm;
