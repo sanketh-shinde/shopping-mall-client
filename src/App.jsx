@@ -4,11 +4,14 @@ import Profile from "./components/Profile";
 import LoginForm from "./components/Login";
 import NavBar from "./components/NavBar";
 import AssignManager from "./components/AssignManager";
+import CreateStock from "./components/stock/CreateStock";
+import UpdateStock from "./components/stock/UpdateStock";
+
 
 function App() {
   return (
     <>
-      <NavBar />
+      {/* <NavBar />
       <Routes>
         <Route path="/">
           <Route path="register" element={<RegisterForm />} />
@@ -18,8 +21,11 @@ function App() {
           />
           <Route path="login" element={<LoginForm />} />
           <Route path="profile" element={<Profile />} />
+          
         </Route>
-      </Routes>
+      </Routes> */}
+      <CreateStock/>
+      <UpdateStock/>
     </>
   );
 }
