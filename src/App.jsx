@@ -1,16 +1,16 @@
 import { Route, Routes } from "react-router-dom";
-import RegisterForm from "./components/Register";
-import Profile from "./components/Profile";
-import LoginForm from "./components/Login";
-import NavBar from "./components/NavBar";
-import AssignManager from "./components/AssignManager";
+
+import RegisterForm from "./components/employee/Register";
+import AssignManager from "./components/employee/AssignManager";
+import LoginForm from "./components/employee/Login";
+import Profile from "./components/profile/Profile";
+import Home from "./components/Home";
 
 function App() {
   return (
     <>
-      <NavBar />
       <Routes>
-        <Route path="/">
+        <Route path="/" element={<Home />}>
           <Route path="register" element={<RegisterForm />} />
           <Route
             path="register/assign-manager/:id"
