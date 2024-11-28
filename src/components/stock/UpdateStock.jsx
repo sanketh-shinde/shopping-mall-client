@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styles from '../../styles/CreateStock.module.css'
-const CreateStock = () => {
+const UpdateStock = () => {
 
       const [formData, setFormData] = useState({
         category: '',
@@ -17,10 +17,10 @@ const CreateStock = () => {
       });
     
       const handleChange = (e) => {
-        const {name,value} = e.target;
+        const { name, value } = e.target;
         setFormData({
           ...formData,
-        [name]:value 
+          [name]: value,
         });
       };
     
@@ -40,9 +40,10 @@ const CreateStock = () => {
     
       const handleSubmit = (e) => {
         e.preventDefault();
-       setErrors(validate())
+        const validationErrors = validate();
+        setErrors(validationErrors);
     
-        if (Object.keys(validate()).length === 0) {
+        if (Object.keys(validationErrors).length === 0) {
           console.log('Form submitted with data:', formData);
           // Here you can send the form data to an API or handle the submission further
         }
@@ -57,7 +58,7 @@ const CreateStock = () => {
       return (
       
         <div className={styles.formContainer}>
-          <h2>Create Stock Form</h2>
+          <h2>Update Stock Form</h2>
           <form onSubmit={handleSubmit}>
             <div>
               <input
@@ -111,10 +112,6 @@ const CreateStock = () => {
           </form>
         </div>
       );
-    
-    
-    
-    
-}
+    }
 
-export default CreateStock
+export default UpdateStock
