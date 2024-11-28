@@ -90,6 +90,7 @@ const RegisterForm = () => {
               onChange={(e) =>
                 setEmployee({ ...employee, name: e.target.value })
               }
+              placeholder="Enter Name"
               required
             />
           </label>
@@ -103,6 +104,7 @@ const RegisterForm = () => {
               onChange={(e) =>
                 setEmployee({ ...employee, phoneNumber: e.target.value })
               }
+              placeholder="Enter Phone Number"
               required
             />
           </label>
@@ -124,7 +126,7 @@ const RegisterForm = () => {
           <label>
             Designation:
             <select onChange={(e) => handleRoleAndSalary(e.target.value)}>
-              <option>Select a designation</option>
+              <option>Select A Designation</option>
               <option value="admin">Admin</option>
               <option value="accountant">Accountant</option>
               <option value="sales-supervisor">Sale Supervisor</option>
@@ -142,6 +144,7 @@ const RegisterForm = () => {
               onChange={(e) =>
                 setEmployee({ ...employee, password: e.target.value })
               }
+              placeholder="Enter Password"
               required
             />
           </label>
