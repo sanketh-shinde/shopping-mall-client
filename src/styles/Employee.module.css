@@ -52,3 +52,11 @@
 .submit:hover {
   background-color: #4fa3e4;
 }
+
+/* error message */
+.error {
+  text-align: center;
+  font-size: large;
+  color: red;
+  text-transform: capitalize;
+}
