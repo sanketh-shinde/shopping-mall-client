@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
+
+import styles from "../../styles/Employee.module.css";
 
 const LoginForm = () => {
   const initialState = {
@@ -15,12 +17,13 @@ const LoginForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <h1>Login</h1>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <h1 className={styles.heading}>Login</h1>
         <div>
-          <label>
+          <label className={styles.labelText}>
             Phone Number:
             <input
+              className={styles.input}
               type="number"
               placeholder="Enter Phone Number"
               value={loginData.phoneNumber}
@@ -32,9 +35,10 @@ const LoginForm = () => {
           </label>
         </div>
         <div>
-          <label>
+          <label className={styles.labelText}>
             Password:
             <input
+              className={styles.input}
               type="password"
               placeholder="Enter Password"
               value={loginData.password}
@@ -45,7 +49,7 @@ const LoginForm = () => {
             />
           </label>
         </div>
-        <input type="submit" value="Login" />
+        <input type="submit" value="Login" className={styles.submit} />
       </form>
     </>
   );

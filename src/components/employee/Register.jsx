@@ -1,11 +1,12 @@
 import { useState } from "react";
 
+import styles from "../../styles/Employee.module.css";
+
 const RegisterForm = () => {
   const initialState = {
     name: "",
     phoneNumber: "",
     password: "",
-    salary: 0.0,
     joiningDate: "",
     year: new Date().getFullYear(),
     roles: [
@@ -23,7 +24,6 @@ const RegisterForm = () => {
       case "admin":
         setEmployee({
           ...employee,
-          salary: 65000,
           roles: [
             { designation: "Admin", role: "ROLE_ADMIN" },
             { designation: "Employee", role: "ROLE_EMPLOYEE" },
@@ -33,7 +33,6 @@ const RegisterForm = () => {
       case "accountant":
         setEmployee({
           ...employee,
-          salary: 55000,
           roles: [
             { designation: "Accountant", role: "ROLE_ACCOUNTANT" },
             { designation: "Employee", role: "ROLE_EMPLOYEE" },
@@ -43,7 +42,6 @@ const RegisterForm = () => {
       case "sales-supervisor":
         setEmployee({
           ...employee,
-          salary: 45000,
           roles: [
             { designation: "Sales Supervisor", role: "ROLE_SALES_SUPERVISOR" },
             { designation: "Employee", role: "ROLE_EMPLOYEE" },
@@ -53,7 +51,6 @@ const RegisterForm = () => {
       case "floor-supervisor":
         setEmployee({
           ...employee,
-          salary: 35000,
           roles: [
             { designation: "Floor Supervisor", role: "ROLE_FLOOR_SUPERVISOR" },
             { designation: "Employee", role: "ROLE_EMPLOYEE" },
@@ -63,7 +60,6 @@ const RegisterForm = () => {
       case "employee":
         setEmployee({
           ...employee,
-          salary: 25000,
           roles: [{ designation: "Employee", role: "ROLE_EMPLOYEE" }],
         });
         break;
@@ -79,12 +75,13 @@ const RegisterForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <h1>Register Employee</h1>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <h1 className={styles.heading}>Register Employee</h1>
         <div>
-          <label>
+          <label className={styles.labelText}>
             Name:
             <input
+              className={styles.input}
               type="text"
               value={employee.name}
               onChange={(e) =>
@@ -96,9 +93,10 @@ const RegisterForm = () => {
           </label>
         </div>
         <div>
-          <label>
+          <label className={styles.labelText}>
             Phone Number:
             <input
+              className={styles.input}
               type="number"
               value={employee.phoneNumber}
               onChange={(e) =>
@@ -110,9 +108,10 @@ const RegisterForm = () => {
           </label>
         </div>
         <div>
-          <label>
+          <label className={styles.labelText}>
             Joining Date:
             <input
+              className={styles.input}
               type="date"
               value={employee.joiningDate}
               onChange={(e) =>
@@ -123,22 +122,26 @@ const RegisterForm = () => {
           </label>
         </div>
         <div>
-          <label>
+          <label className={styles.labelText}>
             Designation:
-            <select onChange={(e) => handleRoleAndSalary(e.target.value)}>
+            <select
+              className={styles.input}
+              onChange={(e) => handleRoleAndSalary(e.target.value)}
+            >
               <option>Select A Designation</option>
               <option value="admin">Admin</option>
               <option value="accountant">Accountant</option>
-              <option value="sales-supervisor">Sale Supervisor</option>
+              <option value="sales-supervisor">Sales Supervisor</option>
               <option value="floor-supervisor">Floor Supervisor</option>
               <option value="employee">Employee</option>
             </select>
           </label>
         </div>
         <div>
-          <label>
+          <label className={styles.labelText}>
             Password:
             <input
+              className={styles.input}
               type="password"
               value={employee.password}
               onChange={(e) =>
@@ -149,7 +152,11 @@ const RegisterForm = () => {
             />
           </label>
         </div>
-        <input type="submit" value="Register Employee" />
+        <input
+          type="submit"
+          value="Register Employee"
+          className={styles.submit}
+        />
       </form>
     </>
   );
