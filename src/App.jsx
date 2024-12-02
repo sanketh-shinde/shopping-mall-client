@@ -5,6 +5,8 @@ import AssignManager from "./components/employee/AssignManager";
 import LoginForm from "./components/employee/Login";
 import Profile from "./components/profile/Profile";
 import Home from "./components/Home";
+import StockLandingPage from "./components/stock/StockLandingPage";
+import CreateStock from "./components/stock/CreateStock";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           />
           <Route path="login" element={<LoginForm />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="stock" element={<StockLandingPage />} />
+          <Route path="stock/create" element={<CreateStock />} />
         </Route>
       </Routes>
     </>

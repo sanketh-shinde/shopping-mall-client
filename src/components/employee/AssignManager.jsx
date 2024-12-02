@@ -2,28 +2,54 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import styles from "../../styles/Employee.module.css";
+import {
+  findManagerById,
+  findManagerByName,
+} from "../../services/managerService";
+import Manager from "./Manager";
 
 const AssignManager = () => {
+  const param = useParams();
+
   const initialState = {
-    employeeId: 0,
+    employeeId: param.id,
     managerId: "",
   };
 
-  const param = useParams();
-
   const [data, setData] = useState(initialState);
-  useEffect(() => {
-    setData({ ...data, employeeId: param.id });
-  }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(data);
+  const [managerList, setManagerList] = useState([]);
+
+  useEffect(() => {}, [managerList]);
+
+  const handleSearch = (value) => {
+    const id = Number(value);
+    if (!isNaN(id)) {
+      findManagerById(value)
+        .then((response) => {
+          setManagerList(response.data.data);
+          return response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+          return error;
+        });
+    } else if (typeof value == "string") {
+      findManagerByName(value)
+        .then((response) => {
+          setManagerList(response.data.data);
+          return response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+          return error;
+        });
+    }
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit} className={styles.form}>
+      <div className={styles.form}>
         <h1 className={styles.heading}>Assign Manager</h1>
         <div>
           <label className={styles.labelText}>
@@ -35,12 +61,16 @@ const AssignManager = () => {
               value={data.managerId}
               onChange={(e) => {
                 setData({ ...data, managerId: e.target.value });
+                handleSearch(e.target.value);
               }}
               required
             />
           </label>
         </div>
-      </form>
+        {managerList.length > 0 && (
+          <Manager assign={{ managers: managerList, data: data }} />
+        )}
+      </div>
     </>
   );
 };

@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { login } from "../../services/authService";
+
 import styles from "../../styles/Employee.module.css";
 
 const LoginForm = () => {
@@ -10,15 +12,31 @@ const LoginForm = () => {
 
   const [loginData, setLoginData] = useState(initialState);
 
+  const [errorMessage, setErrorMessage] = useState("");
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(loginData);
+    login(loginData)
+      .then((response) => {
+        const employeeDetails = response.data;
+        const token = employeeDetails.data.token;
+        localStorage.setItem("employee", JSON.stringify(token));
+        return employeeDetails;
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+        setErrorMessage(error.response.data);
+        return error;
+      });
   };
 
   return (
     <>
       <form onSubmit={handleSubmit} className={styles.form}>
         <h1 className={styles.heading}>Login</h1>
+        {errorMessage && (
+          <p className={styles.error}>{`${errorMessage} try again!`}</p>
+        )}
         <div>
           <label className={styles.labelText}>
             Phone Number:

@@ -1,68 +1,47 @@
-import React, { useState } from 'react'
-import ProductCard from './ProductCard'
+import React, { useEffect, useState } from "react";
+import ProductCard from "./ProductCard";
+import { getAllStocks } from "../../services/StockServices";
+import styles from "../../styles/ProductCard.module.css";
 
-const ShowStocks = () => {
-  const stocks =[
-    {id :1,category:'Electronics'
-      ,name :'Mobile',
-    price:5000 , quantity:50},
+const ShowStocks = (props) => {
+  console.log(props);
+  const [stocks, setStocks] = useState([]);
 
-    {id :2,category:'Electronics'
-      ,name :'Mobile',
-    price:5000 , quantity:50},
+  useEffect(() => {
+    getAllStocks()
+      .then((response) => {
+        console.log(response.data.data);
+        setStocks(response.data.data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
 
-    {id :3,category:'Electronics'
-      ,name :'Mobile',
-    price:5000 , quantity:50},
-
-    {id :4,category:'Electronics'
-      ,name :'Mobile',
-    price:5000 , quantity:50},
-    {id :4,category:'Electronics'
-      ,name :'Mobile',
-    price:5000 , quantity:50},
-    {id :4,category:'Electronics'
-      ,name :'Mobile',
-    price:5000 , quantity:50},
-    {id :4,category:'Electronics'
-      ,name :'Mobile',
-    price:5000 , quantity:50},
-    {id :4,category:'Electronics'
-      ,name :'Mobile',
-    price:5000 , quantity:50},
-    {id :4,category:'Electronics'
-      ,name :'Mobile',
-    price:5000 , quantity:50},
-  ]
-const [stock , setStock]=useState(stocks)
-  const handleUpdate =() =>{
+  const handleUpdate = () => {
     console.log(`Updating product with ID: $`);
-  }
-  const handleDelete =()=>{
+  };
+  const handleDelete = () => {
     // setStock(stocks.filter(product => product.productId !== stocks.id));
     // console.log(`Deleted product with ID: `);
-        }
-  
+  };
+
   return (
-
     <>
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-    {
-      stocks.map(stock => {
-        return <ProductCard
-        key={stock.id}
-        productName={stock.name}
-        category={stock.category}
-        price={stock.price}
-        onUpdate={handleUpdate()} 
-        onDelete={handleDelete()} 
-
-        />
-      })
-    }
-    </div>
+      <div className={styles.productGrid}>
+        {stocks.map((stock) => {
+          return (
+            <ProductCard
+              key={stock.id}
+              productName={stock.productName}
+              quantity={stock.quantity}
+              price={stock.price}
+              onUpdate={handleUpdate()}
+              onDelete={handleDelete()}
+            />
+          );
+        })}
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default ShowStocks
+export default ShowStocks;
