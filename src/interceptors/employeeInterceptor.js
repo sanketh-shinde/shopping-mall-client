@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const employeeAxiosInstance = axios.create({
-  baseURL: "http://localhost:8081/employees/register",
+  baseURL: "http://localhost:8081/employees",
 });
 
 employeeAxiosInstance.interceptors.request.use(
