@@ -1,16 +1,19 @@
-import React from 'react'
-import AsideNavBar from './AsideNavBar'
-import ShowStocks from './ShowStocks'
-import StockNavBar from './StockNavBar'
+import React from "react";
+import AsideNavBar from "./AsideNavBar";
+import ShowStocks from "./ShowStocks";
+import styles from "../../styles/StockLandingPage.module.css";
 
 const StockLandingPage = () => {
   return (
     <div>
-      <StockNavBar/>
-      <AsideNavBar/>
-      <ShowStocks/>
+      <div className={styles.asideComponent}>
+        <AsideNavBar />
+      </div>
+      <div className={styles.showStocksComponent}>
+        <ShowStocks />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default StockLandingPage
+export default StockLandingPage;

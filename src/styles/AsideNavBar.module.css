@@ -1,57 +1,65 @@
 .aside {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 230px;  
-    background-color:white;
-    padding: 20px;
-    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
-    height: 100vh;  
-    overflow-y: auto;
+  position: fixed;
+  top: 108px;
+  left: 0;
+  width: 320px;
+  background-color: white;
+  padding: 20px;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  height: auto;
+  overflow-y: auto;
+}
+
+.category,
+.price {
+  margin-bottom: 20px;
+}
+
+.category h3,
+.price h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.category ul,
+.price ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.category li,
+.price li {
+  cursor: pointer;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.category li:hover,
+.price li:hover {
+  background-color: #f1f1f1;
+}
+
+select {
+  padding: 5px;
+  width: 30%;
+  margin-top: 5px;
+}
+
+.priceRange {
+  font-size: 1rem;
+  color: rgb(219, 151, 151);
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .aside {
+    width: 100%;
+    position: static;
+    box-shadow: none;
+    height: auto;
   }
-  
-  .category, .price {
-    margin-bottom: 20px;
-  }
-  
-  .category h3, .price h3 {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-  }
-  
-  .category ul, .price ul {
-    list-style-type: none;
-    padding-left: 0;
-  }
-  
-  .category li, .price li {
-    cursor: pointer;
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .category li:hover, .price li:hover {
-    background-color: #f1f1f1;
-  }
-  
-  select {
-    padding: 5px;
-    width: 30%;
-    margin-top: 5px;
-  }
-  
-  p {
-    font-size: 1rem;
-    color: #333;
-    margin-top: 10px;
-  }
-  
-  @media (max-width: 768px) {
-    .aside {
-      width: 100%;
-      position: static;
-      box-shadow: none;
-      height: auto;
-    }
-  }
-  
+}
+.selectedCategory{
+  color: rgb(219, 151, 151);
+  font-size: 1rem;
+}

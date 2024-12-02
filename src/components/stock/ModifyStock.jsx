@@ -1,9 +1,7 @@
 import React from "react";
 
 const ModifyStock = () => {
-  return (
-    <></>
-  );
+  return <></>;
 };
 
 export default ModifyStock;
