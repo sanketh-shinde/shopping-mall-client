@@ -91,7 +91,7 @@
 .deleteButton:hover {
   background-color: #c0392b;
 }
-.productGrid{
+.productGrid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }

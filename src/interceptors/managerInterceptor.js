@@ -1,12 +1,13 @@
 import axios from "axios";
+import { user } from "../services/authService";
 
-const employeeAxiosInstance = axios.create({
-  baseURL: "http://localhost:8081/managers",
+const managerAxiosInstance = axios.create({
+  baseURL: "http://10.0.0.79:8081/managers",
 });
 
-employeeAxiosInstance.interceptors.request.use(
+managerAxiosInstance.interceptors.request.use(
   (config) => {
-    const employee = JSON.parse(localStorage.getItem("employee"));
+    const employee = user();
 
     if (employee.token) {
       config.headers["Authorization"] = `Bearer ${employee.token}`;
@@ -20,7 +21,7 @@ employeeAxiosInstance.interceptors.request.use(
   }
 );
 
-employeeAxiosInstance.interceptors.response.use(
+managerAxiosInstance.interceptors.response.use(
   (response) => {
     if (response.status == 302) {
       console.log(response.data);
@@ -43,4 +44,4 @@ employeeAxiosInstance.interceptors.response.use(
   }
 );
 
-export default employeeAxiosInstance;
+export default managerAxiosInstance;
