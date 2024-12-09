@@ -1,6 +1,9 @@
-import axios from "axios";
+import employeeAxiosInstance from "../interceptors/employeeInterceptor";
 
-const baseUrl = "http://192.168.2.78:8081/employees";
+const baseUrl = "http://10.0.0.79:8081/employees";
 
 export const register = (employee) =>
-  axios.post(`${baseUrl}/register`, employee);
+  employeeAxiosInstance.post(`${baseUrl}/register`, employee);
+
+export const findEmployee = (employeeId) =>
+  employeeAxiosInstance.get(`${baseUrl}/${employeeId}`);

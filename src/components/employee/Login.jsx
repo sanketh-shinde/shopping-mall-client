@@ -3,6 +3,7 @@ import { useState } from "react";
 import { login } from "../../services/authService";
 
 import styles from "../../styles/Employee.module.css";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const initialState = {
@@ -14,13 +15,16 @@ const LoginForm = () => {
 
   const [errorMessage, setErrorMessage] = useState("");
 
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     login(loginData)
       .then((response) => {
         const employeeDetails = response.data;
-        const token = employeeDetails.data.token;
-        localStorage.setItem("employee", JSON.stringify(token));
+        const employee = employeeDetails.data;
+        localStorage.setItem("employee", JSON.stringify(employee));
+        navigate("/profile");
         return employeeDetails;
       })
       .catch((error) => {

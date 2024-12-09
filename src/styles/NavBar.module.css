@@ -17,7 +17,8 @@
   transition: background-color 0.3s ease;
 }
 
-.link:hover {
+.link:hover,
+.active {
   text-decoration: underline #61dafb;
   text-decoration-thickness: 3px;
   text-underline-offset: 5px;

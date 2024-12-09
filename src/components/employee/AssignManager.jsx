@@ -1,26 +1,35 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 
-import styles from "../../styles/Employee.module.css";
+import Manager from "./Manager";
 import {
   findManagerById,
   findManagerByName,
 } from "../../services/managerService";
-import Manager from "./Manager";
+
+import styles from "../../styles/Employee.module.css";
 
 const AssignManager = () => {
   const param = useParams();
 
+  const employee = {
+    id: param.id,
+  };
+
   const initialState = {
-    employeeId: param.id,
+    manager: {
+      employees: [
+        {
+          id: employee.id,
+        },
+      ],
+    },
     managerId: "",
   };
 
   const [data, setData] = useState(initialState);
 
   const [managerList, setManagerList] = useState([]);
-
-  useEffect(() => {}, [managerList]);
 
   const handleSearch = (value) => {
     const id = Number(value);
