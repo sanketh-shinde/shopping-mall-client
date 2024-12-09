@@ -1,12 +1,13 @@
 import axios from "axios";
+import { user } from "../services/authService";
 
 const employeeAxiosInstance = axios.create({
-  baseURL: "http://localhost:8081/employees",
+  baseURL: "http://10.0.0.79:8081/employees",
 });
 
 employeeAxiosInstance.interceptors.request.use(
   (config) => {
-    const employee = JSON.parse(localStorage.getItem("employee"));
+    const employee = user();
 
     if (employee.token) {
       config.headers["Authorization"] = `Bearer ${employee.token}`;

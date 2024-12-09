@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import { findEmployee, register } from "../../services/employeeService";
+import { useNavigate } from "react-router-dom";
 
 import styles from "../../styles/Employee.module.css";
 
 const RegisterForm = () => {
   const initialState = {
+    id: "",
     name: "",
     phoneNumber: "",
     password: "",
@@ -18,6 +22,10 @@ const RegisterForm = () => {
   };
 
   const [employee, setEmployee] = useState(initialState);
+
+  const [isAvailable, setIsAvailable] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleRoleAndSalary = (designation) => {
     switch (designation) {
@@ -68,15 +76,50 @@ const RegisterForm = () => {
     }
   };
 
+  useEffect(() => {
+    if (employee.id !== "") {
+      findEmployee(employee.id)
+        .then((response) => setIsAvailable(true))
+        .catch((error) => setIsAvailable(false));
+    }
+  }, [employee.id]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(employee);
+    const token = JSON.parse(localStorage.getItem("token"));
+    console.log(token);
+
+    register(employee)
+      .then((response) => {
+        const createdEmployee = response.data.data;
+        console.log(createdEmployee);
+        navigate(`/register/assign-manager/${createdEmployee.id}`);
+      })
+      .catch((error) => {
+        console.log(error);
+        return error;
+      });
   };
 
   return (
     <>
       <form onSubmit={handleSubmit} className={styles.form}>
         <h1 className={styles.heading}>Register Employee</h1>
+        <div>
+          <label className={styles.labelText}>
+            Id:
+            <input
+              className={styles.input}
+              type="number"
+              value={employee.id}
+              onChange={(e) => setEmployee({ ...employee, id: e.target.value })}
+              placeholder="Enter Id"
+              required
+            />
+          </label>
+          {isAvailable && <p>Employee exits with the id</p>}
+        </div>
         <div>
           <label className={styles.labelText}>
             Name:
