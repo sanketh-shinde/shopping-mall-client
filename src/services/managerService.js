@@ -1,9 +1,11 @@
 import axios from "axios";
 
-const baseUrl = "http://192.168.2.78:8081/managers";
+import managerAxiosInstance from "../interceptors/managerInterceptor";
+
+const baseUrl = "http://10.0.0.79:8081/managers";
 
 export const assignManager = (managerId, employeeId) =>
-  axios.post(`${baseUrl}/assignManager/${managerId}`, managerId, employeeId);
+  managerAxiosInstance.put(`${baseUrl}/assignManager/${managerId}`, employeeId);
 
 export const findManagerById = (id) => axios.get(`${baseUrl}?id=${id}`, id);
 
