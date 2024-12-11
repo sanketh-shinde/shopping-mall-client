@@ -7,6 +7,9 @@ import Profile from "./components/profile/Profile";
 import Home from "./components/Home";
 import StockLandingPage from "./components/stock/StockLandingPage";
 import CreateStock from "./components/stock/CreateStock";
+import CategoryStock from "./components/stock/CategoryStock";
+import PriceRangeStock from "./components/stock/PriceRangeStock";
+import UpdateStock from "./components/stock/UpdateStock";
 
 function App() {
   return (
@@ -21,7 +24,10 @@ function App() {
           <Route path="login" element={<LoginForm />} />
           <Route path="profile" element={<Profile />} />
           <Route path="stock" element={<StockLandingPage />} />
+          <Route path="stock/:category" element={<CategoryStock />} />
+          <Route path="stock/priceRange" element={<PriceRangeStock />} />
           <Route path="stock/create" element={<CreateStock />} />
+          <Route path="stock/update" element={<UpdateStock />} />
         </Route>
       </Routes>
     </>

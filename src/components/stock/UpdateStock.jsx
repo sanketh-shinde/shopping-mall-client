@@ -71,6 +71,7 @@ const UpdateStock = () => {
             onChange={handleChange}
             placeholder="Category"
             className={styles.inputField}
+            readOnly
           />
           {errors.category && (
             <p className={styles.errorMessage}>{errors.category}</p>
@@ -85,6 +86,7 @@ const UpdateStock = () => {
             onChange={handleChange}
             placeholder="Product Name"
             className={styles.inputField}
+            readOnly
           />
           {errors.productName && (
             <p className={styles.errorMessage}>{errors.productName}</p>
@@ -99,6 +101,7 @@ const UpdateStock = () => {
             onChange={handleChange}
             placeholder="Quantity"
             className={styles.inputField}
+            readOnly
           />
           {errors.quantity && (
             <p className={styles.errorMessage}>{errors.quantity}</p>

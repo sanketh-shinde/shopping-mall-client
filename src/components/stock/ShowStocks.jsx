@@ -2,26 +2,34 @@ import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import { getAllStocks } from "../../services/StockServices";
 import styles from "../../styles/ProductCard.module.css";
+import { useNavigate } from "react-router-dom";
 
-const ShowStocks = (props) => {
-  console.log(props);
+const ShowStocks = ({ filter }) => {
+  const navigate = useNavigate();
   const [stocks, setStocks] = useState([]);
 
+  // Fetch stocks when the filter changes
   useEffect(() => {
-    getAllStocks()
-      .then((response) => {
-        console.log(response.data.data);
-        setStocks(response.data.data);
-      })
-      .catch((error) => console.log(error));
-  }, []);
+    if (!filter) {
+      // No filter, fetch all stocks
+      getAllStocks()
+        .then((response) => {
+          console.log("All Stocks:", response.data.data);
+          setStocks(response.data.data); // Update stocks
+        })
+        .catch((error) => console.error(error));
+    } else if (filter?.category) {
+      navigate(`/stock/${filter.category}`);
+    }
+  }, [filter]);
 
-  const handleUpdate = () => {
-    console.log(`Updating product with ID: $`);
+  const update = (stockId) => {
+    console.log("update stock with id: " + stockId);
+    navigate("/stock/update");
   };
-  const handleDelete = () => {
-    // setStock(stocks.filter(product => product.productId !== stocks.id));
-    // console.log(`Deleted product with ID: `);
+
+  const deleteStock = (stockId) => {
+    console.log("delete stock with id: " + stockId);
   };
 
   return (
@@ -34,8 +42,8 @@ const ShowStocks = (props) => {
               productName={stock.productName}
               quantity={stock.quantity}
               price={stock.price}
-              onUpdate={handleUpdate()}
-              onDelete={handleDelete()}
+              onUpdate={() => update(stock.id)}
+              onDelete={() => deleteStock(stock.id)}
             />
           );
         })}
