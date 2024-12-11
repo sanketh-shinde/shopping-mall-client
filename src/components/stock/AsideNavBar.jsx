@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import styles from "../../styles/AsideNavBar.module.css";
 import ShowStocks from "./ShowStocks";
+import { useNavigate } from "react-router-dom";
 
 const AsideNavBar = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
+  const navigate = useNavigate();
 
   const [selectedMinPriceRange, setMinPrice] = useState("");
   const [selectedMaxPriceRange, setMaxPrice] = useState("");
@@ -36,14 +38,23 @@ const AsideNavBar = () => {
     console.log("Max Price: ", selectedMaxPrice);
   };
 
-  const handleElectronics = () => {
-    setSelectedCategory("Electronics");
-    console.log("Selected Category: Electronics");
+  const handleSubmit = (e) => {
+    if (
+      (!selectedMinPriceRange && !selectedMaxPriceRange) ||
+      (selectedMinPriceRange && !selectedMaxPriceRange) ||
+      (!selectedMinPriceRange && selectedMaxPriceRange)
+    ) {
+      alert("please provide price range");
+    } else {
+      navigate(
+        `/stock/priceRange?minPrice=${selectedMinPriceRange}&maxPrice=${selectedMaxPriceRange}`
+      );
+    }
   };
 
-  const handleCloth = () => {
-    setSelectedCategory("Cloth");
-    console.log("Selected Category: Cloth");
+  const handleCategory = (e) => {
+    setSelectedCategory(e.target.innerText);
+    console.log(`Selected Category: ${selectedCategory}`);
   };
 
   return (
@@ -57,8 +68,8 @@ const AsideNavBar = () => {
           )}
           <h3>Category</h3>
           <ul>
-            <li onClick={handleElectronics}>Electronics</li>
-            <li onClick={handleCloth}>Cloth</li>
+            <li onClick={handleCategory}>Electronics</li>
+            <li onClick={handleCategory}>Cloth</li>
           </ul>
         </div>
 
@@ -73,6 +84,7 @@ const AsideNavBar = () => {
                 value={selectedMinPriceRange}
                 onChange={handleMinPriceChange}
               >
+                <option>MinPrice</option>
                 <option value="100">100₹</option>
                 <option value="500">500₹</option>
                 <option value="1000">1000₹</option>
@@ -89,6 +101,7 @@ const AsideNavBar = () => {
                 value={selectedMaxPriceRange}
                 onChange={handleMaxPriceChange}
               >
+                <option>MaxPrice</option>
                 <option value="800">800₹</option>
                 <option value="1500">1500₹</option>
                 <option value="3000">3000₹</option>
@@ -104,16 +117,13 @@ const AsideNavBar = () => {
               {selectedMaxPriceRange}₹
             </p>
           )}
+          <button onClick={handleSubmit}>Submit</button>
         </div>
       </div>
 
       <ShowStocks
         filter={{
           category: selectedCategory,
-          priceRange: {
-            minPrice: selectedMinPriceRange,
-            maxPrice: selectedMaxPriceRange,
-          },
         }}
       />
     </>

@@ -1,60 +1,59 @@
 * {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 .formContainer {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 400px;
-    margin: 28px auto;
-    padding: 60px;
-    border: 1px solid #ccc;
-    border-radius: 25px;
-    background-color: #f9f9f9;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  margin: 28px auto;
+  padding: 60px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
 }
 
 .inputField {
-    margin-bottom: 15px;
-    padding: 12px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    width: 100%;
-    box-sizing: border-box;
+  margin-bottom: 15px;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .inputField:focus {
-    border-color: #007bff;
-    outline: none;
+  border-color: #007bff;
+  outline: none;
 }
 
 .submitButton {
-    padding: 12px 20px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 16px;
-    width: 100%;
-    box-sizing: border-box;
+  padding: 12px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .submitButton:hover {
-    background-color: #218838;
+  background-color: #218838;
 }
 
 .errorMessage {
-    color: red;
-    font-size: 20px;
-    
+  color: red;
+  font-size: 20px;
 }
