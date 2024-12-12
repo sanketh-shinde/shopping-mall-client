@@ -1,13 +1,11 @@
 .aside {
   position: fixed;
-  top: 108px;
+  top: 90px;
   left: 0;
-  width: 320px;
+  width: 220px;
   background-color: white;
   padding: 20px;
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
-  height: auto;
-  overflow-y: auto;
 }
 
 .category,
@@ -41,7 +39,6 @@
 
 select {
   padding: 5px;
-  width: 30%;
   margin-top: 5px;
 }
 
@@ -59,7 +56,16 @@ select {
     height: auto;
   }
 }
-.selectedCategory{
+.selectedCategory {
   color: rgb(219, 151, 151);
   font-size: 1rem;
+}
+.btn {
+  background-color: #3498db;
+  color: white;
+  padding: 5px;
+  border-radius: 2px;
+  border: none;
+  margin-top: 5px;
+  cursor: pointer;
 }

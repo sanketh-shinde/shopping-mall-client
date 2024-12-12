@@ -1,31 +1,30 @@
 import React, { useEffect, useState } from "react";
-import ProductCard from "./ProductCard";
-import { deleteProduct, getAllStocks } from "../../services/StockServices";
+import { useNavigate, useSearchParams } from "react-router-dom";
+
 import styles from "../../styles/ProductCard.module.css";
-import { useNavigate } from "react-router-dom";
+import { deleteProduct, getByPriceRange } from "../../services/StockServices";
+import ProductCard from "./ProductCard";
 
-const ShowStocks = ({ filter }) => {
-  const navigate = useNavigate();
+const PriceRangeStock = () => {
   const [stocks, setStocks] = useState([]);
+  const navigate = useNavigate();
 
-  // Fetch stocks when the filter changes
+  const [searchParams] = useSearchParams();
+  const minPrice = searchParams.get("minPrice");
+  const maxPrice = searchParams.get("maxPrice");
+
   useEffect(() => {
-    if (!filter) {
-      // No filter, fetch all stocks
-      getAllStocks()
-        .then((response) => {
-          console.log("All Stocks:", response.data.data);
-          setStocks(response.data.data);
-        })
-        .catch((error) => console.error(error));
-    } else if (filter?.category) {
-      navigate(`/stock/${filter.category}`);
-    }
-  }, [filter]);
+    getByPriceRange(minPrice, maxPrice)
+      .then((response) => {
+        console.log("Filtered by Price Range:", response.data.data);
+        setStocks(response.data.data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
   const update = (stockId) => {
     console.log("update stock with id: " + stockId);
-    navigate(`/stock/update/${stockId}`);
+    navigate("/stock/update");
   };
 
   const deleteStock = (stockId) => {
@@ -42,6 +41,9 @@ const ShowStocks = ({ filter }) => {
 
   return (
     <>
+      <button className={styles.backBtn} onClick={() => navigate(-1)}>
+        Back
+      </button>
       <div className={styles.productGrid}>
         {stocks.map((stock) => {
           return (
@@ -60,4 +62,4 @@ const ShowStocks = ({ filter }) => {
   );
 };
 
-export default ShowStocks;
+export default PriceRangeStock;

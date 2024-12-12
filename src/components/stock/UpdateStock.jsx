@@ -1,41 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../styles/CreateStock.module.css";
+import { findStockById, updateProduct } from "../../services/StockServices";
+import { useParams, useSearchParams } from "react-router-dom";
 const UpdateStock = () => {
-  const [formData, setFormData] = useState({
+  let { id } = useParams();
+
+  const initailState = {
+    id: id,
     category: "",
     productName: "",
     quantity: "",
+    price: "",
+  };
+
+  const [searchParams] = useSearchParams();
+  // const stockId = searchParams.get("id");
+  // const price = searchParams.get("price");
+
+  const data = {
+    stockId: searchParams.get("id"),
+    price: searchParams.get("price"),
+  };
+
+  const [stocks, setStocks] = useState(initailState);
+
+  const [errors, setErrors] = useState({
     price: "",
   });
 
-  const [errors, setErrors] = useState({
-    category: "",
-    productName: "",
-    quantity: "",
-    price: "",
-  });
+  useEffect(() => {
+    findStockById(id)
+      .then((response) => {
+        console.log("stock:", response.data.data);
+        setStocks(response.data.data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
+    setStocks((prevStock) => {
+      const updateStock = {
+        ...prevStock,
+        [name]: value,
+      };
+      return updateStock;
     });
   };
 
   const validate = () => {
     const newErrors = {};
-    if (!formData.category) newErrors.category = "Category is required";
-    if (!formData.productName)
-      newErrors.productName = "Product name is required";
-    if (
-      !formData.quantity ||
-      isNaN(formData.quantity) ||
-      formData.quantity <= 0
-    ) {
-      newErrors.quantity = "Quantity must be a positive number";
-    }
-    if (!formData.price || isNaN(formData.price) || formData.price <= 0) {
+    if (!stocks.price || isNaN(stocks.price) || stocks.price <= 0) {
       newErrors.price = "Price must be a positive number";
     }
 
@@ -48,15 +63,14 @@ const UpdateStock = () => {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      console.log("Form submitted with data:", formData);
+      console.log("Form submitted with data:", stocks);
       // Here you can send the form data to an API or handle the submission further
+      updateProduct((data.stockId = stocks.id), (data.price = stocks.price))
+        .then((response) => {
+          alert(response.data.message);
+        })
+        .catch((error) => console.log(error));
     }
-    setFormData({
-      category: "",
-      productName: "",
-      quantity: "",
-      price: "",
-    });
   };
 
   return (
@@ -67,10 +81,10 @@ const UpdateStock = () => {
           <input
             type="text"
             name="category"
-            value={formData.category}
-            onChange={handleChange}
+            value={stocks.category}
             placeholder="Category"
             className={styles.inputField}
+            readOnly
           />
           {errors.category && (
             <p className={styles.errorMessage}>{errors.category}</p>
@@ -81,10 +95,10 @@ const UpdateStock = () => {
           <input
             type="text"
             name="productName"
-            value={formData.productName}
-            onChange={handleChange}
+            value={stocks.productName}
             placeholder="Product Name"
             className={styles.inputField}
+            readOnly
           />
           {errors.productName && (
             <p className={styles.errorMessage}>{errors.productName}</p>
@@ -95,10 +109,10 @@ const UpdateStock = () => {
           <input
             type="number"
             name="quantity"
-            value={formData.quantity}
-            onChange={handleChange}
+            value={stocks.quantity}
             placeholder="Quantity"
             className={styles.inputField}
+            readOnly
           />
           {errors.quantity && (
             <p className={styles.errorMessage}>{errors.quantity}</p>
@@ -109,7 +123,7 @@ const UpdateStock = () => {
           <input
             type="number"
             name="price"
-            value={formData.price}
+            value={stocks.price}
             onChange={handleChange}
             placeholder="Price"
             className={styles.inputField}
