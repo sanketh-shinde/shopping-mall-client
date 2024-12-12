@@ -5,7 +5,7 @@ const ProductCard = ({ productName, price, quantity, onUpdate, onDelete }) => {
   return (
     <div className={styles.productCard}>
       <div className={styles.productImage}>
-        <img src="product.svg" alt={productName} className={styles.image} />
+        <img src="/product.svg" alt={productName} className={styles.image} />
       </div>
       <div className={styles.productInfo}>
         <h3 className={styles.productName}>{productName}</h3>

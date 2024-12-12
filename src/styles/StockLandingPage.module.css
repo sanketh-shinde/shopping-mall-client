@@ -28,3 +28,6 @@
   color: white;
   cursor: pointer;
 }
+.btn:hover {
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}

@@ -60,3 +60,12 @@ select {
   color: rgb(219, 151, 151);
   font-size: 1rem;
 }
+.btn {
+  background-color: #3498db;
+  color: white;
+  padding: 5px;
+  border-radius: 2px;
+  border: none;
+  margin-top: 5px;
+  cursor: pointer;
+}

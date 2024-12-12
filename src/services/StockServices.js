@@ -26,7 +26,7 @@ export const getByPriceRange = (minPrice, maxPrice) => {
 export const deleteProduct = (id) => axios.delete(`${REST_API_BASE_URL}/${id}`);
 
 export const updateProduct = (id, price) =>
-  axios.put(`${REST_API_BASE_URL}/updatePrice`, {
+  axios.put(`${REST_API_BASE_URL}/updatePrice`, null, {
     params: {
       id,
       price,
@@ -35,3 +35,6 @@ export const updateProduct = (id, price) =>
 
 export const createStocks = (stock) =>
   axios.post(`${REST_API_BASE_URL}`, stock);
+
+export const findStockById = (id) =>
+  axios.get(`${REST_API_BASE_URL}/${id}`, id);

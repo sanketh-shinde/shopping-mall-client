@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../styles/CreateStock.module.css";
+import { createStocks } from "../../services/StockServices";
+import { useNavigate } from "react-router-dom";
 const CreateStock = () => {
+  const navigate = useNavigate();
   const initialState = {
     category: "",
     productName: "",
@@ -45,7 +48,17 @@ const CreateStock = () => {
 
     if (Object.keys(validate()).length === 0) {
       console.log("Form submitted with data:", formData);
-      // Here you can send the form data to an API or handle the submission further
+      createStocks(formData)
+        .then((response) => {
+          const stock = response.data;
+          console.log(stock);
+          alert(stock.message);
+          navigate("/stock");
+        })
+        .catch((error) => {
+          console.log(error);
+          return error;
+        });
     }
     setFormData(initialState);
   };
