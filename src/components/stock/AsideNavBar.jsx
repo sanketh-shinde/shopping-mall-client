@@ -117,7 +117,7 @@ const AsideNavBar = () => {
               {selectedMaxPriceRange}₹
             </p>
           )}
-          <button onClick={handleSubmit}>Submit</button>
+          <button className={styles.btn} onClick={handleSubmit}>Submit</button>
         </div>
       </div>
 

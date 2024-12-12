@@ -27,7 +27,7 @@ function App() {
           <Route path="stock/:category" element={<CategoryStock />} />
           <Route path="stock/priceRange" element={<PriceRangeStock />} />
           <Route path="stock/create" element={<CreateStock />} />
-          <Route path="stock/update" element={<UpdateStock />} />
+          <Route path="stock/update/:id" element={<UpdateStock />} />
         </Route>
       </Routes>
     </>
