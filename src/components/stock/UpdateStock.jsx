@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
-import styles from "../../styles/CreateStock.module.css";
-import { findStockById, updateProduct } from "../../services/StockServices";
+
 import { useParams, useSearchParams } from "react-router-dom";
+
+import { findStockById, updateProduct } from "../../services/StockServices";
+
+import styles from "../../styles/CreateStock.module.css";
+
 const UpdateStock = () => {
   let { id } = useParams();
 
@@ -14,8 +18,6 @@ const UpdateStock = () => {
   };
 
   const [searchParams] = useSearchParams();
-  // const stockId = searchParams.get("id");
-  // const price = searchParams.get("price");
 
   const data = {
     stockId: searchParams.get("id"),

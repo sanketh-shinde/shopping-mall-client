@@ -113,11 +113,13 @@ const AsideNavBar = () => {
           </ul>
           {selectedMinPriceRange && selectedMaxPriceRange && (
             <p className={styles.priceRange}>
-              Selected Price Range: {selectedMinPriceRange}₹ -{" "}
+              Selected Price Range: {selectedMinPriceRange}₹ -
               {selectedMaxPriceRange}₹
             </p>
           )}
-          <button className={styles.btn} onClick={handleSubmit}>Submit</button>
+          <button className={styles.btn} onClick={handleSubmit}>
+            Submit
+          </button>
         </div>
       </div>
 
