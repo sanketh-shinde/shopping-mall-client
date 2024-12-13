@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
-import styles from "../../styles/CreateStock.module.css";
-import { findStockById, updateProduct,getAllStocks } from "../../services/StockServices";
+
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+
+import { findStockById, updateProduct,getAllStocks } from "../../services/StockServices";
+
+import styles from "../../styles/CreateStock.module.css";
 
 const UpdateStock = () => {
   const navigate = useNavigate();
