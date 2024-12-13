@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 
-import { findStockById, updateProduct } from "../../services/StockServices";
+import { findStockById, updateProduct,getAllStocks } from "../../services/StockServices";
 
 import styles from "../../styles/CreateStock.module.css";
 
 const UpdateStock = () => {
+  const navigate = useNavigate();
   let { id } = useParams();
 
   const initailState = {
@@ -72,6 +73,14 @@ const UpdateStock = () => {
           alert(response.data.message);
         })
         .catch((error) => console.log(error));
+        getAllStocks()
+        .then((response) => {
+          console.log("All Stocks:", response.data.data);
+          setStocks(response.data.data);
+        })
+        .catch((error) => console.error(error));
+        setTimeout(()=>navigate('/stock'),4000)
+    
     }
   };
 

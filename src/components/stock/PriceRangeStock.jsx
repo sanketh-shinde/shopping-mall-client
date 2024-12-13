@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 import styles from "../../styles/ProductCard.module.css";
-import { deleteProduct, getByPriceRange } from "../../services/StockServices";
+import { deleteProduct, getByPriceRange,getAllStocks } from "../../services/StockServices";
+
 import ProductCard from "./ProductCard";
 
 const PriceRangeStock = () => {
@@ -23,8 +24,8 @@ const PriceRangeStock = () => {
   }, []);
 
   const update = (stockId) => {
-    console.log("update stock with id: " + stockId);
-    navigate("/stock/update");
+    navigate(`/stock/update/${stockId}`);
+    
   };
 
   const deleteStock = (stockId) => {
@@ -36,6 +37,12 @@ const PriceRangeStock = () => {
           alert(productDeleted.message);
         })
         .catch((error) => console.log(error));
+        getAllStocks()
+          .then((response) => {
+            console.log("All Stocks:", response.data.data);
+            setStocks(response.data.data);
+          })
+          .catch((error) => console.error(error));
     }
   };
 

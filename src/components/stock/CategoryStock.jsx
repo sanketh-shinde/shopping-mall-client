@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { deleteProduct, getByCategory } from "../../services/StockServices";
+import { deleteProduct, getByCategory,getAllStocks } from "../../services/StockServices";
 import ProductCard from "./ProductCard";
 
 import styles from "../../styles/ProductCard.module.css";
@@ -24,7 +24,7 @@ const CategoryStock = () => {
 
   const update = (stockId) => {
     console.log("update stock with id: " + stockId);
-    navigate("/stock/update");
+    navigate(`/stock/update/${stockId}`);
   };
 
   const deleteStock = (stockId) => {
@@ -36,6 +36,12 @@ const CategoryStock = () => {
           alert(productDeleted.message);
         })
         .catch((error) => console.log(error));
+        getAllStocks()
+          .then((response) => {
+            console.log("All Stocks:", response.data.data);
+            setStocks(response.data.data);
+          })
+          .catch((error) => console.error(error));
     }
   };
 

@@ -16,7 +16,7 @@ const ProductCard = ({ productName, price, quantity, onUpdate, onDelete }) => {
         <div className={styles.buttons}>
           <button
             className={styles.updateButton}
-            onClick={() => console.log(onUpdate())}
+            onClick={() =>onUpdate()}
           >
             Update
           </button>
