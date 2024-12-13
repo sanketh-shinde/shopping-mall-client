@@ -26,6 +26,8 @@ const ShowStocks = ({ filter }) => {
   const update = (stockId) => {
     console.log("update stock with id: " + stockId);
     navigate(`/stock/update/${stockId}`);
+   
+  
   };
 
   const deleteStock = (stockId) => {
@@ -35,6 +37,12 @@ const ShowStocks = ({ filter }) => {
         .then((response) => {
           const productDeleted = response.data;
           alert(productDeleted.message);
+          getAllStocks()
+          .then((response) => {
+            console.log("All Stocks:", response.data.data);
+            setStocks(response.data.data);
+          })
+          .catch((error) => console.error(error));
         })
         .catch((error) => console.log(error));
     }

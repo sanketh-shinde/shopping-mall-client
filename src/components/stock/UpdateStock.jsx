@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../styles/CreateStock.module.css";
-import { findStockById, updateProduct } from "../../services/StockServices";
-import { useParams, useSearchParams } from "react-router-dom";
+import { findStockById, updateProduct,getAllStocks } from "../../services/StockServices";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+
 const UpdateStock = () => {
+  const navigate = useNavigate();
   let { id } = useParams();
 
   const initailState = {
@@ -14,8 +16,6 @@ const UpdateStock = () => {
   };
 
   const [searchParams] = useSearchParams();
-  // const stockId = searchParams.get("id");
-  // const price = searchParams.get("price");
 
   const data = {
     stockId: searchParams.get("id"),
@@ -70,6 +70,14 @@ const UpdateStock = () => {
           alert(response.data.message);
         })
         .catch((error) => console.log(error));
+        getAllStocks()
+        .then((response) => {
+          console.log("All Stocks:", response.data.data);
+          setStocks(response.data.data);
+        })
+        .catch((error) => console.error(error));
+        setTimeout(()=>navigate('/stock'),4000)
+    
     }
   };
 
